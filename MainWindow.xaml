@@ -1,0 +1,75 @@
+﻿<Window x:Class="FileUtility.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileUtility"
+        mc:Ignorable="d" MinWidth="700" MinHeight="350"
+        Title="File utilities" Height="350" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <TabItem Header="Split rows">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="25" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="OpenSplitFileButton" Click="InputSplitFileButtonClick">Open file</Button>
+                        <Label Grid.Column="1">Input file name:</Label>
+                        <Label Grid.Column="2" x:Name="FileName"></Label>
+                    </Grid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Label>File size:</Label>
+                        <Label x:Name="FileSizeText">0.</Label>
+                        <Label>Number of lines:</Label>
+                        <Label x:Name="LinesCountText">0.</Label>
+                        <Label>Split at every</Label>
+                        <TextBox x:Name="SplitEvery" VerticalAlignment="Center" Width="50" 
+                                 HorizontalContentAlignment="Right">0</TextBox>
+                        <Label>row.</Label>
+                        <Label>Copy header to chunks:</Label>
+                        <CheckBox x:Name="IsCopyHeader" IsChecked="True" VerticalAlignment="Center" />
+                        <Label>Preview 50 rows max:</Label>
+                    </StackPanel>
+                    <TextBox Grid.Row="2" VerticalAlignment="Stretch" 
+                             x:Name="TextPreview" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             IsReadOnly="True" />
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="SplitButton" IsEnabled="False" Click="SplitButtonClick">Split</Button>
+                        <Label Grid.Column="1">Output folder:</Label>
+                        <Label Grid.Column="2" x:Name="OutputFolderName"></Label>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="History">
+                <ListBoxItem>Application loaded</ListBoxItem>
+            </ListBox>
+            <Button Grid.Column="1" Margin="5" Click="OnCloseButtonClick">Close</Button>
+        </Grid>
+    </Grid>
+</Window>
