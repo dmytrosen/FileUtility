@@ -12,53 +12,78 @@
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Split rows">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="95" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" x:Name="OpenSplitFileButton" Click="InputSplitFileButtonClick">Open file</Button>
-                        <Label Grid.Column="1">Input file name:</Label>
-                        <Label Grid.Column="2" x:Name="FileName"></Label>
+            <TabItem Header="Split CSV file">
+                <Border Padding="5" BorderThickness="1" BorderBrush="Navy" Margin="-4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="LightGray">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="95" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="75" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0">Input file name:</Label>
+                            <Label Grid.Column="1" x:Name="FileName" HorizontalContentAlignment="Stretch">
+                                <TextBlock Foreground="Navy" Text=".. select file name ->" HorizontalAlignment="Right" />
+                            </Label>
+                            <Button Grid.Column="2" x:Name="OpenSplitFileButton" Margin="5,2,5,0"
+                                    Click="InputSplitFileButtonClick" Content="Open file" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="225" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Margin="0,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="135" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Content="File size:" HorizontalContentAlignment="Right" />
+                                <TextBox IsReadOnly="True" Grid.Column="1" Grid.Row="0" Background="#ddd"
+                                         x:Name="FileSizeText" VerticalAlignment="Center" 
+                                         HorizontalContentAlignment="Right" Text="0" />
+                                <Label Grid.Column="0" Grid.Row="1" Content="Number of rows" HorizontalContentAlignment="Right" />
+                                <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" IsReadOnly="True" Background="#ddd"
+                                         HorizontalContentAlignment="Right" x:Name="LinesCountText" Text="0" Margin="0,3,0,5" />
+                                <Label Grid.Column="0" Grid.Row="2" Content="Split at every" HorizontalContentAlignment="Right" />
+                                <Label Grid.Column="1" Grid.Row="2" Content="row" HorizontalContentAlignment="Right" />
+                                <TextBox Grid.Column="1" Grid.Row="2" x:Name="SplitEvery" 
+                                         VerticalAlignment="Center" Width="50" HorizontalAlignment="Left" 
+                                         HorizontalContentAlignment="Right" Text="0" />
+                                <Label Grid.Column="0" Grid.Row="3" Content="Copy header to output:" HorizontalContentAlignment="Right" />
+                                <CheckBox Grid.Column="1" Grid.Row="3" x:Name="IsCopyHeader" 
+                                          IsChecked="True" VerticalAlignment="Center" />
+                                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Content="Preview top 50 rows ->" 
+                                       HorizontalContentAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-15,0" />
+                            </Grid>
+                            <TextBox Grid.Column="1" VerticalAlignment="Stretch" x:Name="TextPreview" Background="#ddd" IsReadOnly="True" 
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                        </Grid>
+                        <Grid Grid.Row="2" Background="LightGray">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="85" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="75" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0">Output folder:</Label>
+                            <Label Grid.Column="1" x:Name="OutputFolderName"></Label>
+                            <Button Grid.Column="2" x:Name="SplitButton" IsEnabled="False" 
+                                    Click="SplitButtonClick" Content="Split" Margin="5,2,5,0" />
+                        </Grid>
                     </Grid>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Label>File size:</Label>
-                        <Label x:Name="FileSizeText">0.</Label>
-                        <Label>Number of lines:</Label>
-                        <Label x:Name="LinesCountText">0.</Label>
-                        <Label>Split at every</Label>
-                        <TextBox x:Name="SplitEvery" VerticalAlignment="Center" Width="50" 
-                                 HorizontalContentAlignment="Right">0</TextBox>
-                        <Label>row.</Label>
-                        <Label>Copy header to chunks:</Label>
-                        <CheckBox x:Name="IsCopyHeader" IsChecked="True" VerticalAlignment="Center" />
-                        <Label>Preview 50 rows max:</Label>
-                    </StackPanel>
-                    <TextBox Grid.Row="2" VerticalAlignment="Stretch" 
-                             x:Name="TextPreview" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             IsReadOnly="True" />
-                    <Grid Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="75" />
-                            <ColumnDefinition Width="85" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" x:Name="SplitButton" IsEnabled="False" Click="SplitButtonClick">Split</Button>
-                        <Label Grid.Column="1">Output folder:</Label>
-                        <Label Grid.Column="2" x:Name="OutputFolderName"></Label>
-                    </Grid>
-                </Grid>
+                </Border>
             </TabItem>
         </TabControl>
         <Grid Grid.Row="1">

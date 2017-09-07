@@ -82,8 +82,8 @@ namespace FileUtility
                 }
             }
             FileName.Content = fileInfo.FullName;
-            FileSizeText.Content = $"{fileInfo.Length}.";
-            LinesCountText.Content = $"{linesCount}.";
+            FileSizeText.Text = $"{fileInfo.Length}";
+            LinesCountText.Text = $"{linesCount}";
             OutputFolderName.Content = fileInfo.DirectoryName;
             if (linesCount > 1)
             {
